@@ -3,9 +3,19 @@ import {Fragment} from "react";
 import BlogPostList from "../../components/blog/BlogPostList";
 import Layout from "../../components/Layout";
 import Link from "next/link";
+import useSWR from 'swr'
+
+const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function BlogPage() {
-  return (
+    const { data: data, error } = useSWR('https://localhost:8001/posts', fetcher)
+
+    if (error) return <div>failed to load</div>
+    if (!data) return <div>loading...</div>
+
+    console.log('data', data);
+
+    return (
     <Fragment>
       <Head>
         <title>Morabica Blog</title>
@@ -14,7 +24,7 @@ export default function BlogPage() {
       </Head>
         <Layout>
             <Link href={"/blog/categories"}><a>view all categories</a></Link>
-            <BlogPostList />
+            <BlogPostList posts={data["hydra:member"]} total={data["hydra:totalItems"]} />
         </Layout>
     </Fragment>
   )

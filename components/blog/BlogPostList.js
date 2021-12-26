@@ -1,14 +1,14 @@
 import React from 'react';
 import Link from "next/link";
 
-function BlogPostList() {
+function BlogPostList({posts, total}) {
     return (
         <div>
+            <p>There are {total} posts.</p>
             <ul>
-                <li><Link href={"/blog/post-1"}><a>Post 1</a></Link></li>
-                <li><Link href={"/blog/post-2"}><a>Post 2</a></Link></li>
-                <li><Link href={"/blog/post-3"}><a>Post 3</a></Link></li>
-                <li><Link href={"/blog/post-4"}><a>Post 4</a></Link></li>
+                {posts.map(post => (
+                    <li key={post.id}><Link href={`/blog/${post.slug}`}><a>{post.title}</a></Link></li>
+                ))}
             </ul>
         </div>
     );

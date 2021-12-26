@@ -3,7 +3,7 @@ import {Fragment} from "react";
 import Layout from "../../components/Layout";
 import BlogPostDetails from "../../components/blog/BlogPostDetails";
 
-export default function BlogPostDetailsPage() {
+export default function BlogPostDetailsPage({post}) {
     return (
         <Fragment>
             <Head>
@@ -12,8 +12,24 @@ export default function BlogPostDetailsPage() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Layout>
-                <BlogPostDetails />
+                <BlogPostDetails post={post} />
             </Layout>
         </Fragment>
     )
+}
+
+export async function getServerSideProps(context) {
+    const {slug} = context.params;
+    const res = await fetch(`http://localhost:8001/posts/${slug}`)
+    const post = await res.json()
+
+    if (!post) {
+        return {
+            notFound: true,
+        }
+    }
+
+    return {
+        props: {post},
+    }
 }
