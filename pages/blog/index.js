@@ -2,6 +2,7 @@ import Head from 'next/head'
 import {Fragment} from "react";
 import BlogPostList from "../../components/blog/BlogPostList";
 import Layout from "../../components/Layout";
+import Link from "next/link";
 
 export default function BlogPage() {
   return (
@@ -12,6 +13,7 @@ export default function BlogPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <Layout>
+            <Link href={"/blog/categories"}><a>view all categories</a></Link>
             <BlogPostList />
         </Layout>
     </Fragment>
