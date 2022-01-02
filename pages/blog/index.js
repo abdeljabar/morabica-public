@@ -2,13 +2,12 @@ import Head from 'next/head'
 import {Fragment} from "react";
 import BlogPostList from "../../components/blog/BlogPostList";
 import Layout from "../../components/Layout";
-import Link from "next/link";
 import useSWR from 'swr'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function BlogPage() {
-    const { data: data, error } = useSWR('https://localhost:8001/posts', fetcher)
+    const { data: data, error } = useSWR('http://localhost:8020/posts', fetcher)
 
     if (error) return <div>failed to load</div>
     if (!data) return <div>loading...</div>
@@ -23,7 +22,6 @@ export default function BlogPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <Layout>
-            <Link href={"/blog/categories"}><a>view all categories</a></Link>
             <BlogPostList posts={data["hydra:member"]} total={data["hydra:totalItems"]} />
         </Layout>
     </Fragment>

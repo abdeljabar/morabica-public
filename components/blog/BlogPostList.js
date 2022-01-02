@@ -1,17 +1,17 @@
 import React from 'react';
-import Link from "next/link";
+import {Grid} from "@material-ui/core";
+import BlogPostItem from "./BlogPostItem";
 
 function BlogPostList({posts, total}) {
     return (
-        <div>
-            <p>There are {total} posts.</p>
-            <ul>
-                {posts.map(post => (
-                    <li key={post.id}><Link href={`/blog/${post.slug}`}><a>{post.title}</a></Link></li>
-                ))}
-            </ul>
-        </div>
-    );
+        <Grid container spacing={2} alignItems="stretch" style={{padding: 20}}>
+            {posts.map(post => (
+                <Grid item key={post.id} xs={12} sm={6} lg={4} xl={3} style={{display: 'flex'}} >
+                    <BlogPostItem post={post} />
+                </Grid>
+            ))}
+        </Grid>
+    )
 }
 
 export default BlogPostList;

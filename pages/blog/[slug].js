@@ -20,7 +20,7 @@ export default function BlogPostDetailsPage({post}) {
 
 export async function getServerSideProps(context) {
     const {slug} = context.params;
-    const res = await fetch(`http://localhost:8001/posts/${slug}`)
+    const res = await fetch(`http://localhost:8020/posts/${slug}`)
     const post = await res.json()
 
     if (!post) {

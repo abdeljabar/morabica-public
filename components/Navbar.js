@@ -1,17 +1,18 @@
-import React from 'react';
-import Link from 'next/link';
-
-function Navbar() {
-    return (
+import React from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+const NavBar = () => {
+    return(
         <div>
-            <ul>
-                <li><Link href={"/"}><a>Home</a></Link></li>
-                <li><Link href={"/blog"}><a>Blog</a></Link></li>
-                <li><Link href={"/cards"}><a>Cards</a></Link></li>
-                <li><Link href={"/listen"}><a>Listen</a></Link></li>
-            </ul>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="title" color="inherit">
+                        MORABICA
+                    </Typography>
+                </Toolbar>
+            </AppBar>
         </div>
-    );
+    )
 }
-
-export default Navbar;
+export default NavBar;
