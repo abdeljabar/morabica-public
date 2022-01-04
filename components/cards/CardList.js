@@ -1,16 +1,30 @@
-import React from 'react';
-import Link from "next/link";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import NextImage from "next/image";
 
-function CardList() {
+function CardList({cards}) {
+
     return (
-        <div>
-            <ul>
-                <li><Link href={"/cards/card-1"}><a>Card 1</a></Link></li>
-                <li><Link href={"/cards/card-2"}><a>Card 2</a></Link></li>
-                <li><Link href={"/cards/card-3"}><a>Card 3</a></Link></li>
-                <li><Link href={"/cards/card-4"}><a>Card 4</a></Link></li>
-            </ul>
-        </div>
+        <Box sx={{width: 720, height: 450, overflowY: 'scroll'}}>
+            <ImageList variant="masonry" cols={3} gap={8}>
+                {cards.map((item) => {
+                    const featuredImage = item.image && item.image.contentUrl;
+                    return (
+                        <ImageListItem key={item["@id"]}>
+                            <img
+                                src={`${featuredImage}?w=248&fit=crop&auto=format`}
+                                alt={item.title}
+                                loading="lazy"
+                            />
+                            <ImageListItemBar position="below" title={item.title}/>
+                        </ImageListItem>
+                    );
+                })}
+            </ImageList>
+        </Box>
     );
 }
 
