@@ -7,7 +7,7 @@ import useSWR from 'swr'
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function BlogPage() {
-    const { data: data, error } = useSWR('http://localhost:8020/posts', fetcher)
+    const { data: data, error } = useSWR(`${process.env.NEXT_PUBLIC_API}/posts`, fetcher)
 
     if (error) return <div>failed to load</div>
     if (!data) return <div>loading...</div>
